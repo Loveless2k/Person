@@ -7,14 +7,22 @@ public class Person {
     }
 
     public String getFullName(){
-        if (firstName.isEmpty() && lastName.isEmpty()){
+        // Verifica si ambos, firstName y lastName, están vacíos o nulos.
+        // La verificación de nulos es crucial para prevenir NullPointerException.
+        boolean isFirstNameEmpty = firstName == null || firstName.trim().isEmpty();
+        boolean isLastNameEmpty = lastName == null || lastName.trim().isEmpty();
+
+        // Si ambos están vacíos, retorna una cadena vacía.
+        if (isFirstNameEmpty && isLastNameEmpty) {
             return "";
-        } else if (firstName.isEmpty()) {
-            return lastName;
-        } else if (lastName.isEmpty()) {
-            return firstName;
         }
-        return firstName + " " + lastName;
+
+        // Utiliza trim() para eliminar espacios innecesarios antes o después de los nombres.
+        String trimmedFirstName = isFirstNameEmpty ? "" : firstName.trim();
+        String trimmedLastName = isLastNameEmpty ? "" : lastName.trim();
+
+        // Retorna el nombre completo, evitando un espacio adicional si uno de los nombres está vacío.
+        return (trimmedFirstName + " " + trimmedLastName).trim();
     }
 
     public String getFirstName() {
